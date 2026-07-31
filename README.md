@@ -109,21 +109,26 @@ For production deployments, it is recommended to use a WSGI HTTP server like Gun
     ```
 
 2.  **Run with Gunicorn:**
-    Assuming your `ag_proxy.py` file contains an `app` object (e.g., a Flask or FastAPI app), you can run it with Gunicorn:
-
     ```bash
-    gunicorn -w 4 -b 0.0.0.0:9099 ag_proxy:app
+    gunicorn -w 4 -t 5 -b 0.0.0.0:9099 ag_proxy:app
     ```
 
     -   `-w 4`: Runs 4 worker processes. Adjust based on your server's resources.
+    -   `-t 5`: Runs 5 threads per worker. Adjust based on your server's resources.
     -   `-b 0.0.0.0:9099`: Binds the server to all network interfaces on port 9099.
     -   `ag_proxy:app`: Specifies the module (`ag_proxy`) and the application object (`app`) within that module.
 
+    Or run it as Systemd-daemon
+    ```bash
+    sudo cp ag-proxy.service /etc/systemd/system/
+    sudo systemctl daemon-reload
+    sudo systemctl enable --now ag-proxy
+    sudo systemctl status ag-proxy
+    ```
+
 #### Production (Docker)
 
-For containerized deployments, you can use Docker. A `Dockerfile` should be created to build the image.
-
-(Assuming you have a `Dockerfile` in your project root, e.g., provided by the agent previously).
+For containerized deployments, you can use Docker.
 
 1.  **Build the Docker image:**
     ```bash

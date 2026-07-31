@@ -8,7 +8,12 @@ User = root
 Type = simple
 WorkingDirectory = /opt/ag-prox
 SyslogIdentifier = AGProxyServer
-ExecStart = /usr/bin/gunicorn -w 4 -t 5 -b 0.0.0.0:9099 ag_proxy:app
+ExecStart = /usr/local/bin/gunicorn \
+				--workers 4 \
+				--threads 3 \
+				--access-logfile /var/log/ag-proxy/request.log \
+				--log-file /var/log/ag-proxy/proxy.log \
+				-b 0.0.0.0:9099 ag_proxy:app
  
 [Install]
 WantedBy = multi-user.target
