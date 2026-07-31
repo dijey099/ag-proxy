@@ -528,16 +528,35 @@ def stream_openrouter_to_gemini(response):
 
 
 def convert_image_response(data):
-    response_id = data["id"]
-    response_model = data["model"]
-    response_prompt_token = data["usage"]["prompt_tokens"]
-    response_candidates_token = data["usage"]["completion_tokens"]
-    response_total_token = data["usage"]["total_tokens"]
-    response_finish_reason = data["choices"][0]["native_finish_reason"]
-    response_thought_signature = data["choices"][0]["message"]["reasoning_details"][0]["signature"]
-    response_image_data = data["choices"][0]["message"]["images"][0]["image_url"]["url"]
-    image_mime_type, image_data = response_image_data.split(";base64,")
-    image_mime_type = image_mime_type.replace("data:", "")
+    usage = data.get("usage", {})
+    choices = data.get("choices", [])
+
+    choice = choices[0] if choices else {}
+    message = choice.get("message", {})
+
+    # Reasoning details
+    reasoning_details = message.get("reasoning_details", [])
+    thought_signature = (
+        reasoning_details[0].get("signature")
+        if reasoning_details
+        else None
+    )
+
+    # Images
+    images = message.get("images", [])
+    image_url = (
+        images[0]
+        .get("image_url", {})
+        .get("url")
+        if images
+        else None
+    )
+    image_mime_type = None
+    image_data = None
+
+    if image_url and ";base64," in image_url:
+        image_mime_type, image_data = image_url.split(";base64,", 1)
+        image_mime_type = image_mime_type.removeprefix("data:")
 
     d = {
         "response": {
@@ -547,29 +566,30 @@ def convert_image_response(data):
                         "role": "model",
                         "parts": [
                             {
-                                "thoughtSignature": response_thought_signature,
+                                "thoughtSignature": thought_signature,
                                 "inlineData": {
                                     "mimeType": image_mime_type,
-                                    "data": image_data
-                                }
+                                    "data": image_data,
+                                },
                             }
-                        ]
+                        ],
                     },
-                    "finishReason": response_finish_reason
+                    "finishReason": choice.get("native_finish_reason"),
                 }
             ],
             "usageMetadata": {
-                "promptTokenCount": response_prompt_token,
-                "candidatesTokenCount": response_candidates_token,
-                "totalTokenCount": response_total_token
+                "promptTokenCount": usage.get("prompt_tokens", 0),
+                "candidatesTokenCount": usage.get("completion_tokens", 0),
+                "totalTokenCount": usage.get("total_tokens", 0),
             },
-            "modelVersion": response_model,
-            "responseId": response_id
+            "modelVersion": data.get("model"),
+            "responseId": data.get("id"),
         },
         "traceId": uuid.uuid4().hex[:16],
-        "metadata": {}
+        "metadata": {},
     }
-    print(json.dumps(d, indent=4))
+
+    # print(json.dumps(d, indent=4))
     return d
 
 
@@ -1316,6 +1336,7 @@ def generate_content():
     }
     if requested_model == IMAGE_MODEL["id"]:
         print(f"\n===========IMAGE MODEL = {requested_model}===============")
+        print(json.dumps(data, indent=4))
 
         payload = {
             "model": requested_model,
