@@ -1,0 +1,14 @@
+[Unit]
+Description = Antigravity IDE Proxy
+Documentation = https://github.com/dijey099/ag-proxy
+After = network.target
+ 
+[Service]
+User = root
+Type = simple
+WorkingDirectory = /opt/ag-prox
+SyslogIdentifier = AGProxyServer
+ExecStart = /usr/bin/gunicorn -w 4 -t 5 -b 0.0.0.0:9099 ag_proxy:app
+ 
+[Install]
+WantedBy = multi-user.target
