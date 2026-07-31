@@ -63,18 +63,6 @@ The `ag_patch.py` script modifies your Antigravity IDE configuration to direct i
 python ag_patch.py --help
 ```
 
-```
-usage: ag_patch.py [-h] [-u] [--host HOST] [--port PORT]
-
-Antigravity IDE Patcher
-
-options:
-  -h, --help            show this help message and exit
-  -u, --unpatch         Unpatch the Antigravity IDE (revert changes)
-  --host HOST           Host for the proxy (default: localhost)
-  --port PORT           Port for the proxy (default: 8000)
-```
-
 **Patching the IDE:**
 
 To patch the IDE to use the proxy running on `localhost:9099` (default):
