@@ -1336,7 +1336,7 @@ def generate_content():
     }
     if requested_model == IMAGE_MODEL["id"]:
         print(f"\n===========IMAGE MODEL = {requested_model}===============")
-        print(json.dumps(data, indent=4))
+        # print(json.dumps(data, indent=4))
 
         payload = {
             "model": requested_model,
