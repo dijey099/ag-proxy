@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  ag_proxy:
+    build: .
+    ports:
+      - "9099:9099"
+    volumes:
+      - .:/app
+    env_file:
+      - ./.env
