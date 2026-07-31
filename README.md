@@ -28,7 +28,7 @@ The Antigravity Proxy allows you to redirect AI code assist requests from your A
 1.  **Clone the repository:**
     ```bash
     git clone https://github.com/dijey099/ag-proxy.git
-    cd antigravity-proxy-tools
+    cd ag-proxy
     ```
 
 2.  **Create a virtual environment (recommended):**
