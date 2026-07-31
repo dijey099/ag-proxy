@@ -148,3 +148,14 @@ The proxy server uses environment variables for configuration. Currently, the mo
 -   `OPENROUTER_API_KEY`: Your API key for Openrouter.
 -   `PROXY_ADDRESS`: Listen address
 -   `PROXY_PORT`: Listen port
+
+## Support
+Don't forget to start my project if you like it.
+
+Contact me at:
+- [Facebook](https://fb.me/d1j3y)
+- [LinkedIn](https://www.linkedin.com/in/d1j3y/)
+- [My Website](https://dijey.pages.dev/)
+
+
+Made with ❤️ by Dijey
