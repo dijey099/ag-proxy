@@ -818,7 +818,7 @@ def fetch_available_models():
                 "resetTime": get_date_in_7_days()
             },
             "model": flashLite_model_enum,
-            "apiProvider": f"API_PROVIDER_{flashLite_provider}_{flashLite_id.split("-")[0].upper()}",
+            "apiProvider": f"API_PROVIDER_{flashLite_provider}_{flashLite_id.split('-')[0].upper()}",
             "modelProvider": f"MODEL_PROVIDER_{flashLite_provider}",
             "modelExperiments": {
                 "experiments": {
@@ -873,7 +873,7 @@ def fetch_available_models():
                 "resetTime": get_date_in_7_days()
             },
             "model": flash_model_enum,
-            "apiProvider": f"API_PROVIDER_{flash_provider}_{flash_id.split("-")[0].upper()}",
+            "apiProvider": f"API_PROVIDER_{flash_provider}_{flash_id.split('-')[0].upper()}",
             "modelProvider": f"MODEL_PROVIDER_{flash_provider}",
             "supportsVideo": True,
             "supportedMimeTypes": {
@@ -987,7 +987,7 @@ def fetch_available_models():
                 "resetTime": get_date_in_7_days()
             },
             "model": pro_model_enum,
-            "apiProvider": f"API_PROVIDER_{pro_provider}_{pro_id.split("-")[0].upper()}",
+            "apiProvider": f"API_PROVIDER_{pro_provider}_{pro_id.split('-')[0].upper()}",
             "modelProvider": f"MODEL_PROVIDER_{pro_provider}",
             "supportsVideo": True,
             "supportedMimeTypes": {
@@ -1094,7 +1094,7 @@ def fetch_available_models():
                 "resetTime": get_date_in_7_days()
             },
             "model": MODELS[m]["model"],
-            "apiProvider": f"API_PROVIDER_{model_provider}_{model_id.split("-")[0].upper()}",
+            "apiProvider": f"API_PROVIDER_{model_provider}_{model_id.split('-')[0].upper()}",
             "modelProvider": f"MODEL_PROVIDER_{model_provider}",
             "supportsVideo": False,
             "tagTitle": MODELS[m]["tier"].capitalize(),
@@ -1319,7 +1319,7 @@ def generate_content():
 
     print(f"\n===========REQUESTED MODEL = {requested_model}===============")
     if data["request"].get("labels", None):
-        print(f"===========MODEL ENUM CALLED = {data["request"]["labels"]["model_enum"]}===============")
+        print(f"===========MODEL ENUM CALLED = {data['request']['labels']['model_enum']}===============")
 
     logging.info(f"Checking model: {requested_model}")
     if requested_model not in MODELS:
