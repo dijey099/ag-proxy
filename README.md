@@ -3,7 +3,7 @@
 
 This project provides an Antigravity proxy that intercepts AG IDE requests and routes AI Code assist requests to Openrouter. It consists of two main components:
 
-- [`ag_patch.py`](file:///home/sniper099/Music/AG_Proxy/ag_patch.py): A script to patch the Antigravity IDE to route traffic through the local proxy.
+- [`ag_patcher.py`](file:///home/sniper099/Music/AG_Proxy/ag_patcher.py): A script to patch the Antigravity IDE to route traffic through the local proxy.
 - [`ag_proxy.py`](file:///home/sniper009/Music/AG_Proxy/ag_proxy.py): The proxy server that handles requests from the AG IDE and forwards them to Openrouter.
 
 ## Table of Contents
@@ -12,7 +12,7 @@ This project provides an Antigravity proxy that intercepts AG IDE requests and r
   - [Overview](#overview)
   - [Installation](#installation)
   - [Usage](#usage)
-    - [Patcher Script (`ag_patch.py`)](#patcher-script-ag_patch.py)
+    - [Patcher Script (`ag_patcher.py`)](#patcher-script-ag_patcher.py)
     - [Proxy Server (`ag_proxy.py`)](#proxy-server-ag_proxy.py)
       - [Development (Python)](#development-python)
       - [Production (Gunicorn)](#production-gunicorn)
@@ -53,14 +53,14 @@ The Antigravity Proxy allows you to redirect AI code assist requests from your A
 
 ## Usage
 
-### Patcher Script (`ag_patch.py`)
+### Patcher Script (`ag_patcher.py`)
 
-The `ag_patch.py` script modifies your Antigravity IDE configuration to direct its AI code assist traffic to the local proxy server.
+The `ag_patcher.py` script modifies your Antigravity IDE configuration to direct its AI code assist traffic to the local proxy server.
 
 **Command-line Interface (CLI) Options:**
 
 ```bash
-python ag_patch.py --help
+python ag_patcher.py --help
 ```
 
 **Patching the IDE:**
@@ -68,13 +68,13 @@ python ag_patch.py --help
 To patch the IDE to use the proxy running on `localhost:9099` (default):
 
 ```bash
-python ag_patch.py --patch <AG IDE dictory path>
+python ag_patcher.py --patch <AG IDE dictory path>
 ```
 
 To specify a different host and port:
 
 ```bash
-python ag_patch.py --url http://192.168.1.100:9099 --patch <AG IDE dictory path>
+python ag_patcher.py --url http://192.168.1.100:9099 --patch <AG IDE dictory path>
 ```
 
 **Unpatching the IDE:**
@@ -82,7 +82,7 @@ python ag_patch.py --url http://192.168.1.100:9099 --patch <AG IDE dictory path>
 To revert the changes made by the patcher:
 
 ```bash
-python ag_patch.py --unpatch <AG IDE dictory path>
+python ag_patcher.py --unpatch <AG IDE dictory path>
 ```
 
 ### Proxy Server (`ag_proxy.py`)
