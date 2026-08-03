@@ -1,7 +1,3 @@
-// Models for Antigravity IDE Proxy
-// Set "tier" based on model capability
-// If a model can perform a complex task, then set it as "pro"
-// Tier type doesn't affect model capability, but it affects how model performance as Code assistant
 {
     "google/gemini-2.5-flash": {
         "tier": "standard"
