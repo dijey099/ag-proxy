@@ -49,8 +49,18 @@ MODELS = {
         "default": False,
         "model": f"MODEL_PLACEHOLDER_M{random.randint(10, 300)}"
     },
-    "openai/gpt-5-4-mini": {
+    "openai/gpt-5.4-mini": {
         "tier": "standard",
+        "default": False,
+        "model": f"MODEL_PLACEHOLDER_M{random.randint(10, 300)}"
+    },
+    "moonshotai/kimi-k2.6": {
+        "tier": "standard",
+        "default": False,
+        "model": f"MODEL_PLACEHOLDER_M{random.randint(10, 300)}"
+    },
+    "anthropic/claude-sonnet-5": {
+        "tier": "pro",
         "default": False,
         "model": f"MODEL_PLACEHOLDER_M{random.randint(10, 300)}"
     },
