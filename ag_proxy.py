@@ -28,48 +28,39 @@ UPSTREAM_URL = UPSTREAM_URLS[2] # TODO: Rotate it on failure (Failover)
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 
-MODELS = {
-    "google/gemini-2.5-flash": {
-        "tier": "standard",
-        "default": True,
-        "model": f"MODEL_PLACEHOLDER_M{random.randint(10, 300)}"
-    },
-    "google/gemini-2.5-pro": {
-        "tier": "pro",
-        "default": False,
-        "model": f"MODEL_PLACEHOLDER_M{random.randint(10, 300)}"
-    },
-    "google/gemini-3.5-flash": {
-        "tier": "standard",
-        "default": False,
-        "model": f"MODEL_PLACEHOLDER_M{random.randint(10, 300)}"
-    },
-    "openai/gpt-4o-mini": {
-        "tier": "standard",
-        "default": False,
-        "model": f"MODEL_PLACEHOLDER_M{random.randint(10, 300)}"
-    },
-    "openai/gpt-5.4-mini": {
-        "tier": "standard",
-        "default": False,
-        "model": f"MODEL_PLACEHOLDER_M{random.randint(10, 300)}"
-    },
-    "moonshotai/kimi-k2.6": {
-        "tier": "standard",
-        "default": False,
-        "model": f"MODEL_PLACEHOLDER_M{random.randint(10, 300)}"
-    },
-    "anthropic/claude-sonnet-5": {
-        "tier": "pro",
-        "default": False,
-        "model": f"MODEL_PLACEHOLDER_M{random.randint(10, 300)}"
-    },
-    "anthropic/claude-opus-5": {
-        "tier": "pro",
-        "default": False,
-        "model": f"MODEL_PLACEHOLDER_M{random.randint(10, 300)}"
+MODELS = dict()
+if os.path.exists("models.json"):
+    with open("models.json", "r") as models_file:
+        MODELS = json.load(models_file)
+        default = True
+        for m in MODELS:
+            MODELS[m]["default"] = default
+            MODELS[m]["model"] = f"MODEL_PLACEHOLDER_M{random.randint(10, 300)}"
+            if default:
+                default = False
+else:
+    MODELS = {
+        "google/gemini-2.5-flash": {
+            "tier": "standard",
+            "default": True,
+            "model": f"MODEL_PLACEHOLDER_M{random.randint(10, 300)}"
+        },
+        "google/gemini-2.5-pro": {
+            "tier": "pro",
+            "default": False,
+            "model": f"MODEL_PLACEHOLDER_M{random.randint(10, 300)}"
+        },
+        "google/gemini-3.5-flash": {
+            "tier": "standard",
+            "default": False,
+            "model": f"MODEL_PLACEHOLDER_M{random.randint(10, 300)}"
+        },
+        "openai/gpt-4o-mini": {
+            "tier": "standard",
+            "default": False,
+            "model": f"MODEL_PLACEHOLDER_M{random.randint(10, 300)}"
+        }
     }
-}
 
 IMAGE_MODEL = {
     "id": "google/gemini-3.1-flash-lite-image",
