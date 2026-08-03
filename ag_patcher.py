@@ -5,10 +5,10 @@ import argparse
 
 
 TARGET_FILES = [
-    ("resources/app/out/vs/workbench/api/node/extensionHostProcess.js", "extensionHostProcess"),
-    ("resources/app/out/vs/workbench/api/worker/extensionHostWorkerMain.js", "extensionHostWorkerMain"),
-    ("resources/app/out/main.js", "main"),
-    ("resources/app/out/vs/code/node/cliProcessMain.js", "cliProcessMain")
+    (os.path.join("resources", "app", "out", "vs", "workbench", "api", "node", "extensionHostProcess.js"), "extensionHostProcess"),
+    (os.path.join("resources", "app", "out", "vs", "workbench", "api", "worker", "extensionHostWorkerMain.js"), "extensionHostWorkerMain"),
+    (os.path.join("resources", "app", "out", "main.js"), "main"),
+    (os.path.join("resources", "app", "out", "vs", "code", "node", "cliProcessMain.js"), "cliProcessMain")
 ]
 
 
