@@ -57,6 +57,11 @@ The Antigravity Proxy allows you to redirect AI code assist requests from your A
 
 The `ag_patcher.py` script modifies your Antigravity IDE configuration to direct its AI code assist traffic to the local proxy server.
 
+> [!NOTE]
+> **AG IDE dictory path:**
+> **- WINDOWS:** *"C:\Users\%USERNAME%\AppData\Local\Programs\Antigravity IDE"* (Don't forget double quote)
+> **- LINUX:** Depends on installation type (portable, package manager, source, ...)
+
 **Command-line Interface (CLI) Options:**
 
 ```bash
