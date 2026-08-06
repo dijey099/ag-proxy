@@ -1,4 +1,7 @@
 {
+    "poolside/laguna-xs-2.1:free": {
+        "tier": "standard"
+    },
     "google/gemini-2.5-flash": {
         "tier": "standard"
     },
