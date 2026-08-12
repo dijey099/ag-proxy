@@ -1,4 +1,7 @@
 {
+    "openrouter/free": {
+        "tier": "standard"
+    },
     "poolside/laguna-xs-2.1:free": {
         "tier": "standard"
     },
@@ -25,5 +28,11 @@
     },
     "anthropic/claude-opus-5": {
         "tier": "pro"
+    },
+    "meta/muse-spark-1.2": {
+        "tier": "standard"
+    },
+    "meta/muse-glimmer-30b": {
+        "tier": "standard"
     }
 }

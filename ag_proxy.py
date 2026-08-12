@@ -28,6 +28,7 @@ UPSTREAM_URL = UPSTREAM_URLS[2] # TODO: Rotate it on failure (Failover)
 OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 
+picked_id = []
 MODELS = dict()
 if os.path.exists("models.json"):
     with open("models.json", "r") as models_file:
@@ -35,36 +36,45 @@ if os.path.exists("models.json"):
         default = True
         for m in MODELS:
             MODELS[m]["default"] = default
-            MODELS[m]["model"] = f"MODEL_PLACEHOLDER_M{random.randint(10, 300)}"
+            mid = random.randint(10, 300)
+            while mid in picked_id:
+                mid = random.randint(10, 300)
+            MODELS[m]["model"] = f"MODEL_PLACEHOLDER_M{mid}"
+            picked_id.append(mid)
             if default:
                 default = False
 else:
     MODELS = {
-        "google/gemini-2.5-flash": {
+        "openrouter/free": {
             "tier": "standard",
             "default": True,
-            "model": f"MODEL_PLACEHOLDER_M{random.randint(10, 300)}"
+            "model": "MODEL_PLACEHOLDER_M10"
+        },
+        "google/gemini-2.5-flash": {
+            "tier": "standard",
+            "default": False,
+            "model": "MODEL_PLACEHOLDER_M20"
         },
         "google/gemini-2.5-pro": {
             "tier": "pro",
             "default": False,
-            "model": f"MODEL_PLACEHOLDER_M{random.randint(10, 300)}"
+            "model": f"MODEL_PLACEHOLDER_M30"
         },
         "google/gemini-3.5-flash": {
             "tier": "standard",
             "default": False,
-            "model": f"MODEL_PLACEHOLDER_M{random.randint(10, 300)}"
+            "model": f"MODEL_PLACEHOLDER_M40"
         },
         "openai/gpt-4o-mini": {
             "tier": "standard",
             "default": False,
-            "model": f"MODEL_PLACEHOLDER_M{random.randint(10, 300)}"
+            "model": f"MODEL_PLACEHOLDER_M50"
         }
     }
 
 IMAGE_MODEL = {
     "id": "google/gemini-3.1-flash-lite-image",
-    "model": f"MODEL_PLACEHOLDER_M{random.randint(10, 300)}"
+    "model": f"MODEL_PLACEHOLDER_M50"
 }
 
 TIER_MODELS = {
@@ -83,7 +93,19 @@ for t in TIER_MODELS:
     if TIER_MODELS[t]["id"] in MODELS:
         TIER_MODELS[t]["model"] = MODELS[TIER_MODELS[t]["id"]]["model"]
     else:
-        TIER_MODELS[t]["model"] = f"MODEL_PLACEHOLDER_M{random.randint(10, 300)}"
+        mid = random.randint(10, 300)
+        while mid in picked_id:
+            mid = random.randint(10, 300)
+        TIER_MODELS[t]["model"] = f"MODEL_PLACEHOLDER_M{mid}"
+        picked_id.append(mid)
+
+# print(picked_id)
+# print("MAIN MODELS")
+# print(json.dumps(MODELS, indent=4))
+# print("\nIMAGE MODEL")
+# print(json.dumps(IMAGE_MODEL, indent=4))
+# print("\nTIER MODEL")
+# print(json.dumps(TIER_MODELS, indent=4))
 
 
 def get_date_in_7_days():
