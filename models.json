@@ -11,8 +11,8 @@
     "google/gemini-2.5-pro": {
         "tier": "pro"
     },
-    "google/gemini-3.5-flash": {
-        "tier": "standard"
+    "google/gemini-3.6-flash": {
+        "tier": "pro"
     },
     "openai/gpt-4o-mini": {
         "tier": "standard"
@@ -23,16 +23,10 @@
     "moonshotai/kimi-k2.6": {
         "tier": "standard"
     },
-    "anthropic/claude-sonnet-5": {
-        "tier": "pro"
-    },
-    "anthropic/claude-opus-5": {
-        "tier": "pro"
-    },
-    "meta/muse-spark-1.2": {
+    "meta-llama/llama-4-scout": {
         "tier": "standard"
     },
-    "meta/muse-glimmer-30b": {
-        "tier": "standard"
+    "deepseek/deepseek-v4-pro": {
+        "tier": "pro"
     }
 }
