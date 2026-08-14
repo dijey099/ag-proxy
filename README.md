@@ -59,7 +59,7 @@ The `ag_patcher.py` script modifies your Antigravity IDE configuration to direct
 
 > [!NOTE]
 > **AG IDE dictory path:** \
-> **- WINDOWS:** *"C:\Users\%USERNAME%\AppData\Local\Programs\Antigravity IDE"* (Don't forget double quote) \
+> **- WINDOWS:** *"C:\Users\\%USERNAME%\AppData\Local\Programs\Antigravity IDE"* (Don't forget double quote) \
 > **- LINUX:** Depends on installation type (portable, package manager, source, ...) \
 
 **Command-line Interface (CLI) Options:**
