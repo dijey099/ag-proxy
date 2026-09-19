@@ -815,12 +815,10 @@ def fetch_available_models():
     models_data["imageGenerationModelIds"] = [IMAGE_MODEL["id"]]
 
     # Set default agent
-    default_agent = ""
     for a in MODELS:
         if MODELS[a]["default"]:
-            default_agent = a
+            models_data["defaultAgentModelId"] = a
             break
-    models_data["defaultAgentModelId"] = default_agent
 
     # Set tier models to Openrouter models
     for k in TIER_MODELS:
@@ -1121,7 +1119,7 @@ def fetch_available_models():
             "modelProvider": f"MODEL_PROVIDER_{model_provider}",
             "supportsVideo": False,
             "tagTitle": MODELS[m]["tier"].capitalize(),
-            "tagDescription": "Unlimited",
+            "tagDescription": MODELS[m].get("effort", "low").capitalize(),
             "supportedMimeTypes": {
                 "image/webp": True,
                 "text/markdown": True,
@@ -1352,6 +1350,12 @@ def generate_content():
             if requested_model != IMAGE_MODEL["id"]:
                 logging.info(f"Not an image model")
                 return proxy_request(UPSTREAM_URL, request.path)
+            else:
+                logging.info(f"Image model requested")
+        else:
+            logging.info(f"Tier model requested")
+    else:
+        logging.info(f"Generative model requested")
 
     headers = {
         "Authorization": f"Bearer {OPENROUTER_API_KEY}",
@@ -1394,6 +1398,13 @@ def generate_content():
 
         if openai_tools:
             payload["tools"] = openai_tools
+
+        model_effort = MODELS[requested_model].get("effort")
+        if model_effort and MODELS[requested_model]["tier"] == "pro":
+            payload["reasoning"] = {
+                "effort": model_effort,
+                "exclude": True
+            }
         
         logger.info(f"Redirecting AI request ==> OpenRouter [model={requested_model}, stream={is_stream}]")
         
@@ -1404,6 +1415,11 @@ def generate_content():
             stream=is_stream,
             timeout=60
         )
+
+        if resp.status_code != 200:
+            logging.error(f"Response generation error: {resp.status_code}")
+            print(resp.text)
+            return "Failed", resp.status_code
         
         if is_stream:
             return Response(stream_openrouter_to_gemini(resp), mimetype="text/event-stream")

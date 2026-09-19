@@ -9,9 +9,11 @@
         "tier": "standard"
     },
     "google/gemini-2.5-pro": {
+        "effort": "low",
         "tier": "pro"
     },
     "google/gemini-3.6-flash": {
+        "effort": "medium",
         "tier": "pro"
     },
     "openai/gpt-4o-mini": {
@@ -27,6 +29,7 @@
         "tier": "standard"
     },
     "deepseek/deepseek-v4-pro": {
+        "effort": "high",
         "tier": "pro"
     }
 }
